@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jon Bach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0e0d0b;--fg:#f0ead8;--muted:#6a6358;--border:#222018;--accent:#c8a84b;--card:#141210}
+body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',sans-serif;min-height:100vh;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100}
+.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--muted)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--fg)}
+.lang-toggle{display:flex;gap:6px;align-items:center;margin-left:8px;padding-left:8px;border-left:1px solid var(--border)}
+.lang-btn{background:none;border:none;font-size:18px;cursor:pointer;opacity:.4;transition:opacity .2s;padding:2px}
+.lang-btn.active{opacity:1}
+.lang-btn:hover{opacity:.8}
+
+/* HERO */
+.hero{padding:5rem 2.5rem 4rem;max-width:900px}
+.hero-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem}
+.hero-title{font-family:'Instrument Serif',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;color:var(--fg)}
+.hero-title em{font-style:italic;color:var(--accent)}
+.hero-tagline{font-size:16px;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:2.5rem}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn-ghost{padding:10px 22px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--muted);transition:all .2s;cursor:pointer;background:none}
+.btn-ghost:hover{border-color:var(--accent);color:var(--fg)}
+.btn-solid{padding:10px 22px;border:1px solid var(--accent);border-radius:2px;font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--bg);background:var(--accent);transition:all .2s;cursor:pointer}
+.btn-solid:hover{opacity:.85}
+
+/* TICKER */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.6rem 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;gap:2.5rem;animation:ticker 28s linear infinite}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px}
+.ticker-sep{color:var(--border)}
+
+/* SECTIONS */
+section{padding:4rem 2.5rem;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:2rem}
+
+/* PHILOSOPHY */
+.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.phil-item{background:var(--bg);padding:1.75rem;transition:background .2s}
+.phil-item:hover{background:var(--card)}
+.phil-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:.75rem}
+.phil-text{font-size:15px;color:var(--fg);line-height:1.7}
+.phil-text strong{color:var(--accent);font-weight:500}
+
+/* PROJECTS */
+.proj-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.proj{background:var(--bg);padding:1.75rem 2rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;transition:background .2s;cursor:pointer}
+.proj:hover{background:var(--card)}
+.proj-status{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 8px;border-radius:2px;margin-bottom:.75rem;display:inline-block}
+.status-active{background:#1a2a1a;color:#4a8a4a;border:1px solid #2a4a2a}
+.status-deployed{background:#1a2a2a;color:#4a8aaa;border:1px solid #2a4a5a}
+.status-live{background:#2a1a1a;color:#8a4a8a;border:1px solid #4a2a4a}
+.status-vision{background:#1a1a2a;color:#4a4a8a;border:1px solid #2a2a4a}
+.proj-name{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--fg);margin-bottom:.5rem}
+.proj-desc{font-size:14px;color:var(--muted);line-height:1.6;max-width:520px}
+.proj-arrow{font-size:20px;color:var(--muted);margin-top:1.5rem}
+
+/* PROFILE */
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.profile-block{margin-bottom:1.5rem}
+.profile-key{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:.4rem}
+.profile-val{font-size:15px;color:var(--fg);line-height:1.6}
+.stack-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
+.stack-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px;border:1px solid var(--border);border-radius:2px;color:var(--muted)}
+
+/* FOOTER */
+footer{padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+.footer-left{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:13px;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--fg)}
+
+/* LANG */
+[data-lang]{display:none}
+.lang-en [data-lang="en"]{display:block}
+.lang-en [data-lang="en"].inline{display:inline}
+.lang-da [data-lang="da"]{display:block}
+.lang-da [data-lang="da"].inline{display:inline}
+body.lang-en{--active-lang:en}
+body.lang-da{--active-lang:da}
+
+@media(max-width:640px){
+  nav{padding:1rem 1.25rem}
+  .hero{padding:3rem 1.25rem 2.5rem}
+  .phil-grid{grid-template-columns:1fr}
+  .profile-grid{grid-template-columns:1fr}
+  section{padding:3rem 1.25rem}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+}
+</style>
+</head>
+<body class="lang-en">
+
+<nav>
+  <div class="nav-logo">JON BACH</div>
+  <div class="nav-links">
+    <a href="#engines" data-lang="en" class="inline">Build</a>
+    <a href="#engines" data-lang="da" class="inline">Projekter</a>
+    <a href="#profile" data-lang="en" class="inline">Profile</a>
+    <a href="#profile" data-lang="da" class="inline">Profil</a>
+    <a href="https://github.com/NorthLogicLab" target="_blank">GitHub ↗</a>
+    <a href="https://linkedin.com/in/jonbach2012" target="_blank">LinkedIn ↗</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en" title="English">🇬🇧</button>
+      <button class="lang-btn" onclick="setLang('da')" id="btn-da" title="Dansk">🇩🇰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">NorthLogicLab</div>
+
+  <div data-lang="en">
+    <h1 class="hero-title">The engine<br>behind<br><em>the decision.</em></h1>
+    <p class="hero-tagline">I work in the intersection of procurement, operations and IT — building systems that make complex decisions simple, traceable and scalable.</p>
+  </div>
+
+  <div data-lang="da">
+    <h1 class="hero-title">Motoren bag<br><em>beslutningen.</em></h1>
+    <p class="hero-tagline">Jeg arbejder i grænsefladen mellem indkøb, drift og IT — og bygger systemer der gør komplekse beslutninger enkle, sporbare og skalerbare.</p>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#engines" class="btn-solid" data-lang="en" style="display:inline-block">See what I build →</a>
+    <a href="#engines" class="btn-solid" data-lang="da" style="display:none">Se hvad jeg bygger →</a>
+    <a href="https://github.com/NorthLogicLab" target="_blank" class="btn-ghost">GitHub ↗</a>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">PROCUREMENT</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">DECISION INTELLIGENCE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">PPWR / EPR / DPP</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">VENDOR MANAGED INVENTORY</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">SAP INTEGRATION</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">E-PROCUREMENT</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">COST MODELLING</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">REGULATORY COMPLIANCE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">PROCUREMENT</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">DECISION INTELLIGENCE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">PPWR / EPR / DPP</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">VENDOR MANAGED INVENTORY</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">SAP INTEGRATION</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">E-PROCUREMENT</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">COST MODELLING</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">REGULATORY COMPLIANCE</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section>
+  <div class="section-label" data-lang="en">Philosophy</div>
+  <div class="section-label" data-lang="da">Principper</div>
+  <div class="phil-grid">
+    <div class="phil-item">
+      <div class="phil-num">01</div>
+      <div class="phil-text" data-lang="en"><strong>The engine drives value.</strong><br>Others take the spotlight. I build the systems that make decisions possible — traceable, explainable and economically sound.</div>
+      <div class="phil-text" data-lang="da"><strong>Motoren skaber værdien.</strong><br>Andre tager rampelyset. Jeg bygger de systemer der gør beslutninger mulige — sporbare, forklarbare og økonomisk holdbare.</div>
+    </div>
+    <div class="phil-item">
+      <div class="phil-num">02</div>
+      <div class="phil-text" data-lang="en"><strong>Complexity is the input.</strong><br>Clarity is the product. Multi-layer materials. Country-specific regulations. Imperfect data. These aren't obstacles — they're exactly where structured logic creates the most value.</div>
+      <div class="phil-text" data-lang="da"><strong>Kompleksitet er input.</strong><br>Klarhed er produktet. Flerlags materialer. Landespecifik regulering. Ufuldstændige data. Det er ikke forhindringer — det er præcis der struktureret beslutningslogik skaber størst værdi.</div>
+    </div>
+    <div class="phil-item">
+      <div class="phil-num">03</div>
+      <div class="phil-text" data-lang="en"><strong>If it lives only in someone's head,</strong><br>it isn't a system. Tasks, owners and status scattered across memory is not management — it's organised chaos. The only metric that matters: requested by colleagues.</div>
+      <div class="phil-text" data-lang="da"><strong>Hvis det kun lever i ét hoved,</strong><br>er det ikke et system. Opgaver, ejere og status spredt i hukommelsen er ikke ledelse — det er organiseret kaos. Den eneste målestok: efterspurgt af kollegaer.</div>
+    </div>
+    <div class="phil-item">
+      <div class="phil-num">04</div>
+      <div class="phil-text" data-lang="en"><strong>Regulation is not a cost.</strong><br>It's a decision variable. PPWR, EPR and DPP are economic forces. The organisations that treat them as inputs to decision models will outperform those that don't.</div>
+      <div class="phil-text" data-lang="da"><strong>Regulering er ikke en omkostning.</strong><br>Det er en beslutningsvariabel. PPWR, EPR og DPP er økonomiske kræfter. De organisationer der behandler dem som input til beslutningsmodeller vil overpræstere dem der ikke gør.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="engines">
+  <div class="section-label" data-lang="en">What I Build</div>
+  <div class="section-label" data-lang="da">Hvad jeg bygger</div>
+  <div class="proj-list">
+
+    <a href="https://github.com/jonbach2012-design/PackagingTenderDecisionEngine" target="_blank" class="proj">
+      <div>
+        <div class="proj-status status-active">ACTIVE · POC</div>
+        <div class="proj-name">Packaging Tender Decision Engine</div>
+        <div class="proj-desc" data-lang="en">Replaces Excel-based tender evaluation with structured, line-level scoring across commercial, technical and regulatory dimensions. Handles PPWR/EPR impact, multi-material complexity and spend-weighted supplier aggregation. Built in C# / Blazor.</div>
+        <div class="proj-desc" data-lang="da">Erstatter Excel-baseret udbudsevaluering med struktureret, linjeniveau-scoring på tværs af kommercielle, tekniske og regulatoriske dimensioner. Håndterer PPWR/EPR-impact og multi-materiale kompleksitet. Bygget i C# / Blazor.</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </a>
+
+    <a href="https://github.com/NorthLogicLab/VendorManagedInventory" target="_blank" class="proj">
+      <div>
+        <div class="proj-status status-deployed">DEPLOYED · LIVE</div>
+        <div class="proj-name">Vendor Managed Inventory</div>
+        <div class="proj-desc" data-lang="en">Four VMI technologies implemented across Lemvigh-Müller and Sanistål/Ahlsell — ESL, weight-based replenishment, vending machines and StockMaster. Started as a concept. Became a standard customers write into tenders. Live in production across Denmark.</div>
+        <div class="proj-desc" data-lang="da">Fire VMI-teknologier implementeret hos Lemvigh-Müller og Sanistål/Ahlsell. Startede som et koncept vi pressede til markedet. Blev en standard kunder skriver ind i udbud. Live i produktion i hele Danmark.</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </a>
+
+    <div class="proj">
+      <div>
+        <div class="proj-status status-live">IN USE</div>
+        <div class="proj-name">Cost Intelligence</div>
+        <div class="proj-desc" data-lang="en">Cross-country pricing model tracking cost impact and movement across 7 countries and 7 business units in real time. Replaces manual monthly reporting with structured, supplier-level visibility. Built for packaging category management.</div>
+        <div class="proj-desc" data-lang="da">Landekrydsende prismodel der sporer omkostningsbevægelser på tværs af 7 lande og 7 forretningsenheder i realtid. Erstatter manuel månedlig rapportering med struktureret leverandørsynlighed.</div>
+      </div>
+      <div class="proj-arrow">→</div>
+    </div>
+
+    <a href="https://github.com/NorthLogicLab/Regulus" target="_blank" class="proj">
+      <div>
+        <div class="proj-status status-vision">VISION · ROADMAP</div>
+        <div class="proj-name">Regulus</div>
+        <div class="proj-desc" data-lang="en">Modular decision platform for areas where regulation, data quality and economic outcomes are tightly connected. PTDE is the first module. Designed for extensibility across PPWR interpretation, EPR fee logic, DPP documentation and supplier risk.</div>
+        <div class="proj-desc" data-lang="da">Modulær beslutningsplatform til områder hvor regulering, datakvalitet og økonomiske resultater er tæt forbundne. PTDE er det første modul. Designet til udvidelse på tværs af PPWR-fortolkning, EPR-gebyrlogik og leverandørrisiko.</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile">
+  <div class="section-label" data-lang="en">Profile</div>
+  <div class="section-label" data-lang="da">Profil</div>
+  <div class="profile-grid">
+    <div>
+      <div class="profile-block">
+        <div class="profile-key" data-lang="en">Current</div>
+        <div class="profile-key" data-lang="da">Nuværende</div>
+        <div class="profile-val" data-lang="en">System Specialist · Scandi Standard</div>
+        <div class="profile-val" data-lang="da">System Specialist · Scandi Standard</div>
+      </div>
+      <div class="profile-block">
+        <div class="profile-key" data-lang="en">Domain</div>
+        <div class="profile-key" data-lang="da">Domæne</div>
+        <div class="profile-val">Digital Procurement · PPWR/EPR/DPP · Decision Intelligence · Vendor Onboarding</div>
+      </div>
+      <div class="profile-block">
+        <div class="profile-key" data-lang="en">Reach</div>
+        <div class="profile-key" data-lang="da">Rækkevidde</div>
+        <div class="profile-val" data-lang="en">7 countries · 7 business units · Nordic & European markets</div>
+        <div class="profile-val" data-lang="da">7 lande · 7 forretningsenheder · Nordiske og europæiske markeder</div>
+      </div>
+      <div class="profile-block">
+        <div class="profile-key" data-lang="en">Academic foundation</div>
+        <div class="profile-key" data-lang="da">Akademisk fundament</div>
+        <div class="profile-val" data-lang="en">HD International Business, CBS — cluster theory, competitive advantage and knowledge economics</div>
+        <div class="profile-val" data-lang="da">HD International Business, CBS — klyngeteori, konkurrenceevne og videnøkonomi</div>
+      </div>
+      <div class="profile-block">
+        <div class="profile-key">Lab</div>
+        <div class="profile-val" data-lang="en">NorthLogicLab — where ideas become structured engines</div>
+        <div class="profile-val" data-lang="da">NorthLogicLab — hvor idéer bliver til strukturerede motorer</div>
+      </div>
+      <div class="profile-block">
+        <div class="profile-key" data-lang="en">Location</div>
+        <div class="profile-key" data-lang="da">Lokation</div>
+        <div class="profile-val">Aalborg, Denmark</div>
+      </div>
+    </div>
+    <div>
+      <div class="profile-block">
+        <div class="profile-key">Stack</div>
+        <div class="stack-tags">
+          <span class="stack-tag">C# / .NET</span>
+          <span class="stack-tag">Blazor</span>
+          <span class="stack-tag">REST API</span>
+          <span class="stack-tag">SAP / EDI</span>
+          <span class="stack-tag">Power BI</span>
+          <span class="stack-tag">Excel / CSV</span>
+          <span class="stack-tag">PPWR / EPR</span>
+          <span class="stack-tag">AI / RAG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">© 2025 Jon Bach · NorthLogicLab</div>
+  <div class="footer-links">
+    <a href="https://theenginesbehind.com" target="_blank">The Engines Behind ↗</a>
+    <a href="https://github.com/NorthLogicLab" target="_blank">GitHub ↗</a>
+    <a href="https://linkedin.com/in/jonbach2012" target="_blank">LinkedIn ↗</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.body.className='lang-'+lang;
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('btn-da').classList.toggle('active',lang==='da');
+  document.documentElement.lang=lang;
+  // CTA buttons
+  document.querySelectorAll('.hero-cta a[data-lang]').forEach(el=>{
+    el.style.display=el.dataset.lang===lang?'inline-block':'none';
+  });
+}
+// Init
+setLang('en');
+</script>
+</body>
+</html>
