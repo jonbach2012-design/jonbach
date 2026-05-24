@@ -1,334 +1,484 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jon Bach</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Jon Bach — Total Cost of Ownership · Procurement Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0e0d0b;--fg:#f0ead8;--muted:#6a6358;--border:#222018;--accent:#c8a84b;--card:#141210}
-body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',sans-serif;min-height:100vh;line-height:1.6}
-a{color:inherit;text-decoration:none}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAV */
-nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100}
-.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--muted)}
-.nav-links{display:flex;gap:1.5rem;align-items:center}
-.nav-links a{font-size:13px;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--fg)}
-.lang-toggle{display:flex;gap:6px;align-items:center;margin-left:8px;padding-left:8px;border-left:1px solid var(--border)}
-.lang-btn{background:none;border:none;font-size:18px;cursor:pointer;opacity:.4;transition:opacity .2s;padding:2px}
-.lang-btn.active{opacity:1}
-.lang-btn:hover{opacity:.8}
+:root {
+  --bg:      #111110;
+  --bg2:     #1a1917;
+  --bg3:     #222220;
+  --ink:     #f0ece4;
+  --muted:   #888880;
+  --rule:    #2e2e2b;
+  --accent:  #d4541a;
+  --warm:    #e8a060;
+  --sans:    'Syne', sans-serif;
+  --mono:    'DM Mono', monospace;
+  --serif:   'Fraunces', serif;
+}
 
-/* HERO */
-.hero{padding:5rem 2.5rem 4rem;max-width:900px}
-.hero-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem}
-.hero-title{font-family:'Instrument Serif',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;color:var(--fg)}
-.hero-title em{font-style:italic;color:var(--accent)}
-.hero-tagline{font-size:16px;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:2.5rem}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn-ghost{padding:10px 22px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--muted);transition:all .2s;cursor:pointer;background:none}
-.btn-ghost:hover{border-color:var(--accent);color:var(--fg)}
-.btn-solid{padding:10px 22px;border:1px solid var(--accent);border-radius:2px;font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--bg);background:var(--accent);transition:all .2s;cursor:pointer}
-.btn-solid:hover{opacity:.85}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--sans); overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-/* TICKER */
-.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.6rem 0;overflow:hidden;white-space:nowrap}
-.ticker-inner{display:inline-flex;gap:2.5rem;animation:ticker 28s linear infinite}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.ticker-item{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px}
-.ticker-sep{color:var(--border)}
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 56px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem; background: var(--bg); border-bottom: 1px solid var(--rule);
+}
+.nav-logo { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.nav-logo strong { color: var(--ink); font-weight: 400; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
 
-/* SECTIONS */
-section{padding:4rem 2.5rem;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto}
-.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:2rem}
+.burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; cursor: pointer; background: none; border: none; padding: 6px; z-index: 400; position: relative; }
+.burger span { display: block; height: 1.5px; background: var(--ink); transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s; transform-origin: center; }
+.burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* PHILOSOPHY */
-.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
-.phil-item{background:var(--bg);padding:1.75rem;transition:background .2s}
-.phil-item:hover{background:var(--card)}
-.phil-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:.75rem}
-.phil-text{font-size:15px;color:var(--fg);line-height:1.7}
-.phil-text strong{color:var(--accent);font-weight:500}
+.nav-drawer { position: fixed; inset: 0; z-index: 250; background: var(--bg); display: flex; flex-direction: column; padding: 80px 2rem 3rem; transform: translateX(100%); transition: transform .4s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+.nav-drawer.open { transform: translateX(0); pointer-events: all; }
+.nav-drawer a { font-family: var(--serif); font-size: clamp(2rem, 9vw, 3.2rem); font-weight: 300; font-style: italic; color: var(--ink); text-decoration: none; padding: 1rem 0; border-bottom: 1px solid var(--rule); transition: color .2s, padding-left .2s; line-height: 1.1; }
+.nav-drawer a:hover { color: var(--warm); padding-left: .5rem; }
+.drawer-meta { margin-top: auto; font-family: var(--mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); line-height: 1.8; }
 
-/* PROJECTS */
-.proj-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
-.proj{background:var(--bg);padding:1.75rem 2rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;transition:background .2s;cursor:pointer}
-.proj:hover{background:var(--card)}
-.proj-status{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 8px;border-radius:2px;margin-bottom:.75rem;display:inline-block}
-.status-active{background:#1a2a1a;color:#4a8a4a;border:1px solid #2a4a2a}
-.status-deployed{background:#1a2a2a;color:#4a8aaa;border:1px solid #2a4a5a}
-.status-live{background:#2a1a1a;color:#8a4a8a;border:1px solid #4a2a4a}
-.status-vision{background:#1a1a2a;color:#4a4a8a;border:1px solid #2a2a4a}
-.proj-name{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--fg);margin-bottom:.5rem}
-.proj-desc{font-size:14px;color:var(--muted);line-height:1.6;max-width:520px}
-.proj-arrow{font-size:20px;color:var(--muted);margin-top:1.5rem}
+/* ── HERO ── */
+#hero {
+  min-height: 100svh; padding: 80px 1.5rem 4rem;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  border-bottom: 1px solid var(--rule); position: relative; overflow: hidden;
+}
+.hero-watermark { position: absolute; bottom: -1rem; right: -1rem; font-family: var(--serif); font-size: clamp(6rem, 28vw, 20rem); font-weight: 300; font-style: italic; color: transparent; -webkit-text-stroke: 1px var(--rule); white-space: nowrap; pointer-events: none; user-select: none; line-height: 1; }
 
-/* PROFILE */
-.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.profile-block{margin-bottom:1.5rem}
-.profile-key{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:.4rem}
-.profile-val{font-size:15px;color:var(--fg);line-height:1.6}
-.stack-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
-.stack-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px;border:1px solid var(--border);border-radius:2px;color:var(--muted)}
+.hero-label { font-family: var(--mono); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.4rem; opacity: 0; animation: fadeUp .5s .1s forwards; }
+.hero-headline { font-family: var(--serif); font-size: clamp(2.4rem, 7.5vw, 5.2rem); font-weight: 300; line-height: 1.06; opacity: 0; animation: fadeUp .6s .25s forwards; }
+.hero-headline em { font-style: italic; color: var(--warm); }
+.hero-sub { margin-top: 1.8rem; font-family: var(--mono); font-size: clamp(.74rem, 2.2vw, .84rem); line-height: 1.9; color: var(--muted); max-width: 52ch; opacity: 0; animation: fadeUp .6s .4s forwards; }
+.hero-sub strong { color: var(--ink); font-weight: 400; }
+.hero-actions { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; opacity: 0; animation: fadeUp .6s .55s forwards; }
+.btn { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; padding: .75rem 1.5rem; text-decoration: none; border: 1px solid var(--rule); color: var(--ink); transition: border-color .2s, color .2s, background .2s; display: inline-flex; align-items: center; gap: .5rem; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: transparent; color: var(--accent); }
 
-/* FOOTER */
-footer{padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
-.footer-left{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
-.footer-links{display:flex;gap:1.5rem}
-.footer-links a{font-size:13px;color:var(--muted);transition:color .2s}
-.footer-links a:hover{color:var(--fg)}
+/* ── SECTION BASE ── */
+.section-wrap { padding: 4.5rem 1.5rem; border-bottom: 1px solid var(--rule); }
+.section-label { font-family: var(--mono); font-size: .63rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
-/* LANG */
-[data-lang]{display:none}
-.lang-en [data-lang="en"]{display:block}
-.lang-en [data-lang="en"].inline{display:inline}
-.lang-da [data-lang="da"]{display:block}
-.lang-da [data-lang="da"].inline{display:inline}
-body.lang-en{--active-lang:en}
-body.lang-da{--active-lang:da}
+/* ── TCO SECTION ── */
+#tco { padding: 5rem 1.5rem; border-bottom: 1px solid var(--rule); background: var(--bg2); }
 
-@media(max-width:640px){
-  nav{padding:1rem 1.25rem}
-  .hero{padding:3rem 1.25rem 2.5rem}
-  .phil-grid{grid-template-columns:1fr}
-  .profile-grid{grid-template-columns:1fr}
-  section{padding:3rem 1.25rem}
-  footer{flex-direction:column;gap:1rem;text-align:center}
+.tco-intro { font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 300; font-style: italic; line-height: 1.35; max-width: 64ch; margin-bottom: 3.5rem; }
+.tco-intro strong { font-style: normal; font-weight: 400; color: var(--warm); }
+
+.tco-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 2.5rem; }
+
+.tco-item { background: var(--bg); padding: 1.6rem 1.4rem; transition: background .2s; }
+.tco-item:hover { background: var(--bg3); }
+.tco-item.is-base { background: var(--bg3); }
+.tco-item-icon { font-size: 1.2rem; margin-bottom: .8rem; display: block; }
+.tco-item-name { font-family: var(--sans); font-size: .85rem; font-weight: 700; color: var(--ink); margin-bottom: .4rem; }
+.tco-item-qualifier { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+.tco-item.is-base .tco-item-qualifier { color: var(--muted); }
+.tco-item-desc { font-family: var(--mono); font-size: .68rem; line-height: 1.6; color: var(--muted); }
+
+/* TCO two-layer: strategic + operational */
+.tco-layers { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 2.5rem; }
+@media (max-width: 640px) { .tco-layers { grid-template-columns: 1fr; } }
+
+.tco-layer { background: var(--bg); padding: 2rem 1.8rem; }
+.tco-layer-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+.tco-layer-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; line-height: 1.2; margin-bottom: 1rem; }
+.tco-layer-body { font-family: var(--mono); font-size: .74rem; line-height: 1.7; color: var(--muted); }
+.tco-layer-body strong { color: var(--warm); font-weight: 400; }
+.tco-layer-proof { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .68rem; color: var(--ink); line-height: 1.5; }
+.tco-layer-proof::before { content: '→ '; color: var(--accent); }
+
+.tco-verdict { border-left: 2px solid var(--accent); padding-left: 1.5rem; max-width: 68ch; }
+.tco-verdict p { font-family: var(--mono); font-size: .82rem; line-height: 1.8; color: var(--ink); }
+.tco-verdict p + p { margin-top: .8rem; color: var(--muted); }
+
+/* ── QUOTE BOXES ── */
+.quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.quote-card { background: var(--bg2); padding: 1.8rem; display: flex; flex-direction: column; gap: 1.2rem; transition: background .2s; }
+.quote-card:hover { background: var(--bg3); }
+.qc-tco-tag { font-family: var(--mono); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--warm); margin-bottom: -.4rem; }
+.quote-before { font-family: var(--mono); font-size: .72rem; line-height: 1.6; color: var(--muted); padding-bottom: 1.2rem; border-bottom: 1px solid var(--rule); position: relative; padding-left: 1rem; }
+.quote-before::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--rule); }
+.quote-after { font-family: var(--mono); font-size: .78rem; line-height: 1.65; color: var(--ink); position: relative; padding-left: 1rem; }
+.quote-after::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+.quote-after strong { color: var(--warm); font-weight: 400; }
+
+/* ── PROOF ── */
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.proof-card { background: var(--bg); padding: 2rem 1.5rem; position: relative; overflow: hidden; transition: background .2s; }
+.proof-card:hover { background: var(--bg2); }
+.proof-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+.proof-card:hover::after { transform: scaleX(1); }
+.proof-tag { font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+.proof-tco { font-family: var(--mono); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--warm); margin-bottom: .9rem; }
+.proof-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; line-height: 1.2; margin-bottom: .8rem; }
+.proof-body { font-family: var(--mono); font-size: .74rem; line-height: 1.7; color: var(--muted); }
+.proof-outcome { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .7rem; line-height: 1.55; color: var(--warm); }
+.proof-outcome::before { content: '→ '; }
+
+/* ── CAPABILITIES ── */
+.cap-intro { font-family: var(--serif); font-size: clamp(1.4rem, 4vw, 2.1rem); font-weight: 300; font-style: italic; line-height: 1.45; max-width: 54ch; margin-bottom: 2.5rem; }
+.cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.cap-cell { background: var(--bg2); padding: 1.8rem 1.5rem; transition: background .2s; }
+.cap-cell:hover { background: var(--bg3); }
+.cap-num { font-family: var(--mono); font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.cap-name { font-family: var(--sans); font-size: .95rem; font-weight: 700; color: var(--ink); margin-bottom: .6rem; }
+.cap-desc { font-family: var(--mono); font-size: .7rem; line-height: 1.65; color: var(--muted); }
+
+/* ── STACK ── */
+#stack { background: var(--bg2); }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { font-family: var(--mono); font-size: .67rem; letter-spacing: .07em; padding: .42rem .9rem; border: 1px solid var(--rule); color: var(--muted); background: var(--bg); transition: border-color .2s, color .2s; cursor: default; }
+.chip:hover { border-color: var(--accent); color: var(--ink); }
+
+/* ── CONTACT ── */
+#contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.contact-headline { font-family: var(--serif); font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 300; line-height: 1.2; }
+.contact-headline em { font-style: italic; color: var(--warm); }
+.contact-body { font-family: var(--mono); font-size: .75rem; line-height: 1.8; color: var(--muted); margin-top: 1.2rem; max-width: 44ch; }
+.contact-links { display: flex; flex-direction: column; }
+.contact-link { display: flex; align-items: baseline; gap: 1rem; font-family: var(--mono); font-size: .78rem; color: var(--ink); text-decoration: none; padding: 1.2rem 0; border-bottom: 1px solid var(--rule); transition: color .2s; }
+.contact-link:first-child { border-top: 1px solid var(--rule); }
+.contact-link:hover { color: var(--warm); }
+.cl-label { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); width: 4.5rem; flex-shrink: 0; }
+.cl-arrow { margin-left: auto; color: var(--rule); transition: color .2s; }
+.contact-link:hover .cl-arrow { color: var(--accent); }
+
+/* ── FOOTER ── */
+footer { padding: 1.5rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+.footer-logo { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.footer-note { font-family: var(--mono); font-size: .58rem; color: var(--rule); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s, transform .55s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (min-width: 768px) {
+  nav { padding: 0 3rem; }
+  .section-wrap { padding: 5rem 3rem; }
+  #tco { padding: 5rem 3rem; }
+  #hero { padding: 100px 3rem 5rem; }
+}
+@media (max-width: 767px) {
+  .nav-links { display: none; }
+  .burger { display: flex; }
+  #contact-inner { grid-template-columns: 1fr; }
 }
 </style>
 </head>
-<body class="lang-en">
+<body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">JON BACH</div>
-  <div class="nav-links">
-    <a href="#engines" data-lang="en" class="inline">Build</a>
-    <a href="#engines" data-lang="da" class="inline">Projekter</a>
-    <a href="#profile" data-lang="en" class="inline">Profile</a>
-    <a href="#profile" data-lang="da" class="inline">Profil</a>
-    <a href="https://github.com/NorthLogicLab" target="_blank">GitHub ↗</a>
-    <a href="https://linkedin.com/in/jonbach2012" target="_blank">LinkedIn ↗</a>
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en')" id="btn-en" title="English">🇬🇧</button>
-      <button class="lang-btn" onclick="setLang('da')" id="btn-da" title="Dansk">🇩🇰</button>
-    </div>
-  </div>
+  <div class="nav-logo"><strong>Jon Bach</strong> · NorthLogicLab</div>
+  <ul class="nav-links">
+    <li><a href="#tco">TCO</a></li>
+    <li><a href="#transforms">Hvad jeg ændrer</a></li>
+    <li><a href="#proof">Proof of Work</a></li>
+    <li><a href="#capabilities">Hvad jeg gør</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Åbn menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
+<div class="nav-drawer" id="drawer" aria-hidden="true">
+  <a href="#tco">TCO</a>
+  <a href="#transforms">Hvad jeg ændrer</a>
+  <a href="#proof">Proof of Work</a>
+  <a href="#capabilities">Hvad jeg gør</a>
+  <a href="#contact">Kontakt</a>
+  <div class="drawer-meta">Jon Bach · NorthLogicLab<br>Procurement · Compliance · IT</div>
+</div>
+
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-label">NorthLogicLab</div>
+<section id="hero">
+  <div class="hero-watermark">TCO</div>
+  <p class="hero-label">Procurement · Compliance · IT</p>
+  <h1 class="hero-headline">
+    Enhedspris er hvad<br>
+    leverandøren sender.<br>
+    <em>TCO er hvad det<br>faktisk koster.</em>
+  </h1>
+  <p class="hero-sub">
+    Jeg bygger systemer der gør komplekse indkøbsbeslutninger sporbare og dokumenterbare —<br>
+    <strong>regulering, risiko og skjulte omkostninger</strong> koblet til den beslutning der skal træffes.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn primary">Tag kontakt</a>
+    <a href="#tco" class="btn">Forstå TCO-argumentet</a>
+  </div>
+</section>
 
-  <div data-lang="en">
-    <h1 class="hero-title">The engine<br>behind<br><em>the decision.</em></h1>
-    <p class="hero-tagline">I work in the intersection of procurement, operations and IT — building systems that make complex decisions simple, traceable and scalable.</p>
+<!-- TCO -->
+<section id="tco">
+  <div class="section-label reveal">Total Cost of Ownership</div>
+
+  <p class="tco-intro reveal">
+    I en global forsyningskæde er enhedspris en farlig forenkling.<br>
+    <strong>Det billigste tilbud er sjældent den billigste beslutning.</strong>
+  </p>
+
+  <!-- Two layers: strategic procurement vs operational -->
+  <div class="tco-layers reveal">
+    <div class="tco-layer">
+      <div class="tco-layer-label">Strategisk lag · Indkøbsbeslutningen</div>
+      <div class="tco-layer-title">Hvad koster det at vælge den forkerte leverandør?</div>
+      <div class="tco-layer-body">
+        Regulatorisk eksponering, skifteomkostninger, dokumentationsgæld og compliance-risiko er ikke synlige i tilbudsprisen.
+        <strong>PPWR, EPR og DPP ændrer det reelle omkostningsbillede</strong> fra august 2026 — og det skal ind i evalueringslogikken nu.
+      </div>
+      <div class="tco-layer-proof">PTDE — Packaging Tender Decision Engine — er bygget til præcis det her.</div>
+    </div>
+    <div class="tco-layer">
+      <div class="tco-layer-label">Operationelt lag · Driften</div>
+      <div class="tco-layer-title">Hvad koster det at drive forsyningen manuelt?</div>
+      <div class="tco-layer-body">
+        Lagerbinding, produktionsstop, manuelle bestillingsflows, fejlleverancer og medarbejdertid brugt på at ringe til leverandører.
+        <strong>Ingen af disse omkostninger står i kontrakten</strong> — men de er reelle og målbare.
+      </div>
+      <div class="tco-layer-proof">VMI-implementeringer hos Lemvigh-Müller og Sanistål/Ahlsell eliminerede præcis disse skjulte omkostninger.</div>
+    </div>
   </div>
 
-  <div data-lang="da">
-    <h1 class="hero-title">Motoren bag<br><em>beslutningen.</em></h1>
-    <p class="hero-tagline">Jeg arbejder i grænsefladen mellem indkøb, drift og IT — og bygger systemer der gør komplekse beslutninger enkle, sporbare og skalerbare.</p>
+  <!-- Cost factors grid -->
+  <div class="tco-breakdown reveal">
+    <div class="tco-item is-base">
+      <span class="tco-item-icon">📄</span>
+      <div class="tco-item-name">Enhedspris</div>
+      <div class="tco-item-qualifier">Synlig — men ufuldstændig</div>
+      <div class="tco-item-desc">Det tal leverandøren skriver. Alle kan se det. Ingen bør beslutte kun på det.</div>
+    </div>
+    <div class="tco-item">
+      <span class="tco-item-icon">⚖️</span>
+      <div class="tco-item-name">Regulatorisk eksponering</div>
+      <div class="tco-item-qualifier">Skjult TCO-faktor</div>
+      <div class="tco-item-desc">PPWR, EPR og DPP ændrer hvad emballage og materialer reelt koster. Fra august 2026 er det drift — ikke fremtid.</div>
+    </div>
+    <div class="tco-item">
+      <span class="tco-item-icon">🌍</span>
+      <div class="tco-item-name">Landeprofil & risiko</div>
+      <div class="tco-item-qualifier">Skjult TCO-faktor</div>
+      <div class="tco-item-desc">Valuta, told, geopolitik og leveringssikkerhed. Samme produkt, forskellig reel pris afhængigt af land og leverandør.</div>
+    </div>
+    <div class="tco-item">
+      <span class="tco-item-icon">🔄</span>
+      <div class="tco-item-name">Skifteomkostninger</div>
+      <div class="tco-item-qualifier">Skjult TCO-faktor</div>
+      <div class="tco-item-desc">Kvalificering, integration, dokumentation og opstartstid ved leverandørskift. Mangler altid i tilbuddet.</div>
+    </div>
+    <div class="tco-item">
+      <span class="tco-item-icon">🏭</span>
+      <div class="tco-item-name">Operationelle omkostninger</div>
+      <div class="tco-item-qualifier">Skjult TCO-faktor</div>
+      <div class="tco-item-desc">Lagerbinding, produktionsstop, manuelle flows og medarbejdertid. VMI-sporet viser, at disse er målbare og eliminerbare.</div>
+    </div>
+    <div class="tco-item">
+      <span class="tco-item-icon">📋</span>
+      <div class="tco-item-name">Dokumentation & audit</div>
+      <div class="tco-item-qualifier">Skjult TCO-faktor</div>
+      <div class="tco-item-desc">Kan beslutningen forklares til bestyrelsen om 18 måneder? Manglende sporbarhed er en reel og undervurderet omkostning.</div>
+    </div>
   </div>
 
-  <div class="hero-cta">
-    <a href="#engines" class="btn-solid" data-lang="en" style="display:inline-block">See what I build →</a>
-    <a href="#engines" class="btn-solid" data-lang="da" style="display:none">Se hvad jeg bygger →</a>
-    <a href="https://github.com/NorthLogicLab" target="_blank" class="btn-ghost">GitHub ↗</a>
+  <div class="tco-verdict reveal">
+    <p>Det er det her jeg bygger systemer til — ikke endnu et dashboard, men struktureret logik der gør TCO til en reel og dokumenterbar beslutningsvariabel.</p>
+    <p>To lag, samme princip: eliminér de skjulte omkostninger og gør beslutningen forsvarlig — uanset om det er et leverandørudbud eller den daglige forsyningskæde.</p>
   </div>
-</div>
+</section>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">PROCUREMENT</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">DECISION INTELLIGENCE</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">PPWR / EPR / DPP</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">VENDOR MANAGED INVENTORY</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">SAP INTEGRATION</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">E-PROCUREMENT</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">COST MODELLING</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">REGULATORY COMPLIANCE</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">PROCUREMENT</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">DECISION INTELLIGENCE</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">PPWR / EPR / DPP</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">VENDOR MANAGED INVENTORY</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">SAP INTEGRATION</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">E-PROCUREMENT</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">COST MODELLING</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">REGULATORY COMPLIANCE</span><span class="ticker-sep">·</span>
-  </div>
-</div>
-
-<!-- PHILOSOPHY -->
-<section>
-  <div class="section-label" data-lang="en">Philosophy</div>
-  <div class="section-label" data-lang="da">Principper</div>
-  <div class="phil-grid">
-    <div class="phil-item">
-      <div class="phil-num">01</div>
-      <div class="phil-text" data-lang="en"><strong>The engine drives value.</strong><br>Others take the spotlight. I build the systems that make decisions possible — traceable, explainable and economically sound.</div>
-      <div class="phil-text" data-lang="da"><strong>Motoren skaber værdien.</strong><br>Andre tager rampelyset. Jeg bygger de systemer der gør beslutninger mulige — sporbare, forklarbare og økonomisk holdbare.</div>
+<!-- WHAT I CHANGE -->
+<section class="section-wrap" id="transforms">
+  <div class="section-label reveal">Hvad jeg ændrer</div>
+  <div class="quote-grid reveal">
+    <div class="quote-card">
+      <div class="qc-tco-tag">TCO · Indkøbsbeslutning</div>
+      <div class="quote-before">Excel-baseret udbudsevaluering. Manuel scoring. Resultatet sidder i et ark ingen kan forklare bagefter.</div>
+      <div class="quote-after">Struktureret scoring på commercial, technical og regulatory. <strong>Sporbar, vægtet, auditérbar — og TCO-bevidst.</strong></div>
     </div>
-    <div class="phil-item">
-      <div class="phil-num">02</div>
-      <div class="phil-text" data-lang="en"><strong>Complexity is the input.</strong><br>Clarity is the product. Multi-layer materials. Country-specific regulations. Imperfect data. These aren't obstacles — they're exactly where structured logic creates the most value.</div>
-      <div class="phil-text" data-lang="da"><strong>Kompleksitet er input.</strong><br>Klarhed er produktet. Flerlags materialer. Landespecifik regulering. Ufuldstændige data. Det er ikke forhindringer — det er præcis der struktureret beslutningslogik skaber størst værdi.</div>
+    <div class="quote-card">
+      <div class="qc-tco-tag">TCO · Operationel drift</div>
+      <div class="quote-before">Manuel bestilling, lagerbinding og produktionsstop behandlet som uundgåeligt. Ingen har sat tal på det.</div>
+      <div class="quote-after">VMI-systemer der eliminerer de skjulte operationelle omkostninger. <strong>Automatisk genopfyldning, færre stop, målbar besparelse.</strong></div>
     </div>
-    <div class="phil-item">
-      <div class="phil-num">03</div>
-      <div class="phil-text" data-lang="en"><strong>If it lives only in someone's head,</strong><br>it isn't a system. Tasks, owners and status scattered across memory is not management — it's organised chaos. The only metric that matters: requested by colleagues.</div>
-      <div class="phil-text" data-lang="da"><strong>Hvis det kun lever i ét hoved,</strong><br>er det ikke et system. Opgaver, ejere og status spredt i hukommelsen er ikke ledelse — det er organiseret kaos. Den eneste målestok: efterspurgt af kollegaer.</div>
+    <div class="quote-card">
+      <div class="qc-tco-tag">TCO · Cost Intelligence</div>
+      <div class="quote-before">Månedlig prisrapportering sendt manuelt. Altid forsinket. Aldrig sammenlignelig på tværs af markeder.</div>
+      <div class="quote-after">Leverandørsynlighed på tværs af 7 lande. <strong>Priseksponering og risiko — ikke et Excel fra fredag eftermiddag.</strong></div>
     </div>
-    <div class="phil-item">
-      <div class="phil-num">04</div>
-      <div class="phil-text" data-lang="en"><strong>Regulation is not a cost.</strong><br>It's a decision variable. PPWR, EPR and DPP are economic forces. The organisations that treat them as inputs to decision models will outperform those that don't.</div>
-      <div class="phil-text" data-lang="da"><strong>Regulering er ikke en omkostning.</strong><br>Det er en beslutningsvariabel. PPWR, EPR og DPP er økonomiske kræfter. De organisationer der behandler dem som input til beslutningsmodeller vil overpræstere dem der ikke gør.</div>
-    </div>
-    <div class="phil-item">
-      <div class="phil-num">05</div>
-      <div class="phil-text" data-lang="en"><strong>Excel is not a decision engine.</strong><br>It just pretends to be. Manual evaluation leads to inconsistent decisions, invisible risk and dependency on individual knowledge. Structured engines don't forget. They don't have bad days.</div>
-      <div class="phil-text" data-lang="da"><strong>Excel er ikke en beslutningsmotor.</strong><br>Den foregiver bare at være det. Manuel evaluering fører til inkonsistente beslutninger, usynlig risiko og afhængighed af individuel viden. Strukturerede motorer glemmer ikke. De har ikke dårlige dage.</div>
-    </div>
-    <div class="phil-item">
-      <div class="phil-num">06</div>
-      <div class="phil-text" data-lang="en"><strong>What comes next?</strong><br>That's the right question. If you think you know the answer — let's talk.</div>
-      <div class="phil-text" data-lang="da"><strong>Hvad kommer næst?</strong><br>Det er det rigtige spørgsmål. Hvis du tror du kender svaret — lad os tale.</div>
+    <div class="quote-card">
+      <div class="qc-tco-tag">TCO · Regulatorisk risiko</div>
+      <div class="quote-before">Compliance behandlet som juridisk overhead. PPWR og EPR er "noget jurister tager sig af".</div>
+      <div class="quote-after">Regulering ind i sourcing-logikken. <strong>Materialvalg, leverandørvalg og risikovurdering hænger sammen.</strong></div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="engines">
-  <div class="section-label" data-lang="en">What I Build</div>
-  <div class="section-label" data-lang="da">Hvad jeg bygger</div>
-  <div class="proj-list">
-
-    <a href="https://github.com/jonbach2012-design/PackagingTenderDecisionEngine" target="_blank" class="proj">
-      <div>
-        <div class="proj-status status-active">ACTIVE · POC</div>
-        <div class="proj-name">Packaging Tender Decision Engine</div>
-        <div class="proj-desc" data-lang="en">Replaces Excel-based tender evaluation with structured, line-level scoring across commercial, technical and regulatory dimensions. Handles PPWR/EPR impact, multi-material complexity and spend-weighted supplier aggregation. Built in C# / Blazor.</div>
-        <div class="proj-desc" data-lang="da">Erstatter Excel-baseret udbudsevaluering med struktureret, linjeniveau-scoring på tværs af kommercielle, tekniske og regulatoriske dimensioner. Håndterer PPWR/EPR-impact og multi-materiale kompleksitet. Bygget i C# / Blazor.</div>
-      </div>
-      <div class="proj-arrow">↗</div>
-    </a>
-
-    <a href="https://github.com/NorthLogicLab/VendorManagedInventory" target="_blank" class="proj">
-      <div>
-        <div class="proj-status status-deployed">DEPLOYED · LIVE</div>
-        <div class="proj-name">Vendor Managed Inventory</div>
-        <div class="proj-desc" data-lang="en">Four VMI technologies implemented across Lemvigh-Müller and Sanistål/Ahlsell — ESL, weight-based replenishment, vending machines and StockMaster. Started as a concept. Became a standard customers write into tenders. Live in production across Denmark.</div>
-        <div class="proj-desc" data-lang="da">Fire VMI-teknologier implementeret hos Lemvigh-Müller og Sanistål/Ahlsell. Startede som et koncept vi pressede til markedet. Blev en standard kunder skriver ind i udbud. Live i produktion i hele Danmark.</div>
-      </div>
-      <div class="proj-arrow">↗</div>
-    </a>
-
-    <div class="proj">
-      <div>
-        <div class="proj-status status-live">IN USE</div>
-        <div class="proj-name">Cost Intelligence</div>
-        <div class="proj-desc" data-lang="en">Cross-country pricing model tracking cost impact and movement across 7 countries and 7 business units in real time. Replaces manual monthly reporting with structured, supplier-level visibility. Built for packaging category management.</div>
-        <div class="proj-desc" data-lang="da">Landekrydsende prismodel der sporer omkostningsbevægelser på tværs af 7 lande og 7 forretningsenheder i realtid. Erstatter manuel månedlig rapportering med struktureret leverandørsynlighed.</div>
-      </div>
-      <div class="proj-arrow">→</div>
+<!-- PROOF OF WORK -->
+<section class="section-wrap" id="proof">
+  <div class="section-label reveal">Proof of Work</div>
+  <div class="proof-grid">
+    <div class="proof-card reveal">
+      <div class="proof-tag">Active Build · Blazor</div>
+      <div class="proof-tco">TCO · Strategisk indkøbsbeslutning</div>
+      <div class="proof-title">Packaging Tender<br>Decision Engine</div>
+      <div class="proof-body">Erstatter Excel-baseret udbudsevaluering med struktureret line-level scoring på commercial, technical og regulatory dimensions — PPWR/EPR-eksponering er et eksplicit beslutningsinput.</div>
+      <div class="proof-outcome">Enhedspris er ét input. Dokumenterbar TCO er outputtet.</div>
     </div>
-
-    <a href="https://github.com/NorthLogicLab/Regulus" target="_blank" class="proj">
-      <div>
-        <div class="proj-status status-vision">VISION · ROADMAP</div>
-        <div class="proj-name">Regulus</div>
-        <div class="proj-desc" data-lang="en">Modular decision platform for areas where regulation, data quality and economic outcomes are tightly connected. PTDE is the first module. Designed for extensibility across PPWR interpretation, EPR fee logic, DPP documentation and supplier risk.</div>
-        <div class="proj-desc" data-lang="da">Modulær beslutningsplatform til områder hvor regulering, datakvalitet og økonomiske resultater er tæt forbundne. PTDE er det første modul. Designet til udvidelse på tværs af PPWR-fortolkning, EPR-gebyrlogik og leverandørrisiko.</div>
-      </div>
-      <div class="proj-arrow">↗</div>
-    </a>
-
+    <div class="proof-card reveal">
+      <div class="proof-tag">Live i Drift · 7 lande / 7 BU</div>
+      <div class="proof-tco">TCO · Cost Intelligence</div>
+      <div class="proof-title">Cross-Country<br>Pricing Model</div>
+      <div class="proof-body">Erstatter manuel månedlig rapportering med struktureret leverandørsynlighed — valuta, landeprofil og priseksponering samlet så ledelsen ser det reelle billede.</div>
+      <div class="proof-outcome">Priseksponering og leverandørrisiko synlig i realtid — ikke bagud i tid.</div>
+    </div>
+    <div class="proof-card reveal">
+      <div class="proof-tag">Live i Produktion · DK</div>
+      <div class="proof-tco">TCO · Skjulte operationelle omkostninger</div>
+      <div class="proof-title">VMI / Industrial<br>Automation</div>
+      <div class="proof-body">Fire teknologier implementeret hos Lemvigh-Müller og Sanistål/Ahlsell. Lagerbinding, manuelle flows og produktionsstop gjort målbare — og elimineret systematisk.</div>
+      <div class="proof-outcome">Kunderne skrev det ind i tenders bagefter. Beviset er, at det holdt i drift.</div>
+    </div>
   </div>
 </section>
 
-<!-- PROFILE -->
-<section id="profile">
-  <div class="section-label" data-lang="en">Profile</div>
-  <div class="section-label" data-lang="da">Profil</div>
-  <div class="profile-grid">
-    <div>
-      <div class="profile-block">
-        <div class="profile-key" data-lang="en">Current</div>
-        <div class="profile-key" data-lang="da">Nuværende</div>
-        <div class="profile-val" data-lang="en">System Specialist · Scandi Standard</div>
-        <div class="profile-val" data-lang="da">System Specialist · Scandi Standard</div>
-      </div>
-      <div class="profile-block">
-        <div class="profile-key" data-lang="en">Domain</div>
-        <div class="profile-key" data-lang="da">Domæne</div>
-        <div class="profile-val">Digital Procurement · PPWR/EPR/DPP · Decision Intelligence · Vendor Onboarding</div>
-      </div>
-      <div class="profile-block">
-        <div class="profile-key" data-lang="en">Reach</div>
-        <div class="profile-key" data-lang="da">Rækkevidde</div>
-        <div class="profile-val" data-lang="en">7 countries · 7 business units · Nordic & European markets</div>
-        <div class="profile-val" data-lang="da">7 lande · 7 forretningsenheder · Nordiske og europæiske markeder</div>
-      </div>
-      <div class="profile-block">
-        <div class="profile-key" data-lang="en">Academic foundation</div>
-        <div class="profile-key" data-lang="da">Akademisk fundament</div>
-        <div class="profile-val" data-lang="en">HD International Business, CBS — cluster theory, competitive advantage and knowledge economics</div>
-        <div class="profile-val" data-lang="da">HD International Business, CBS — klyngeteori, konkurrenceevne og videnøkonomi</div>
-      </div>
-      <div class="profile-block">
-        <div class="profile-key">Lab</div>
-        <div class="profile-val" data-lang="en">NorthLogicLab — where ideas become structured engines</div>
-        <div class="profile-val" data-lang="da">NorthLogicLab — hvor idéer bliver til strukturerede motorer</div>
-      </div>
-      <div class="profile-block">
-        <div class="profile-key" data-lang="en">Location</div>
-        <div class="profile-key" data-lang="da">Lokation</div>
-        <div class="profile-val">Aalborg, Denmark</div>
-      </div>
+<!-- CAPABILITIES -->
+<section class="section-wrap" id="capabilities">
+  <div class="section-label reveal">Hvad jeg gør</div>
+  <p class="cap-intro reveal">
+    Jeg oversætter mellem indkøb, compliance og IT —<br>
+    og bygger systemer der overlever, når mødet er slut.
+  </p>
+  <div class="cap-grid">
+    <div class="cap-cell reveal">
+      <div class="cap-num">01</div>
+      <div class="cap-name">TCO-baseret beslutningslogik</div>
+      <div class="cap-desc">Strukturerer komplekse indkøbsbeslutninger med alle relevante cost-faktorer. Sporbar, dokumenterbar og forsvarlig — ikke kun billig.</div>
     </div>
+    <div class="cap-cell reveal">
+      <div class="cap-num">02</div>
+      <div class="cap-name">Regulatory Cost Intelligence</div>
+      <div class="cap-desc">PPWR, EPR og DPP (EU) som eksplicit TCO-variabel i sourcing. Fra august 2026 er det ikke valgfrit — det er et konkurrenceparameter.</div>
+    </div>
+    <div class="cap-cell reveal">
+      <div class="cap-num">03</div>
+      <div class="cap-name">Operationel TCO & VMI</div>
+      <div class="cap-desc">Skjulte driftsomkostninger synliggjort og elimineret. Automatisering der ikke bare sparer tid — men fjerner de omkostninger ingen havde sat tal på.</div>
+    </div>
+    <div class="cap-cell reveal">
+      <div class="cap-num">04</div>
+      <div class="cap-name">System Integration</div>
+      <div class="cap-desc">Logik koblet til operationelle systemer. SAP, EDI, REST. Værdien er ikke UI'et — værdien er forbindelsen til virkeligheden.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="section-wrap" id="stack">
+  <div class="section-label reveal">Domæne & Tech</div>
+  <div class="chips reveal">
+    <span class="chip">Total Cost of Ownership</span>
+    <span class="chip">PPWR / EPR (EU)</span>
+    <span class="chip">Digital Product Passport</span>
+    <span class="chip">Procurement Tender Logic</span>
+    <span class="chip">Cost Intelligence</span>
+    <span class="chip">Supplier Risk Scoring</span>
+    <span class="chip">VMI / Industrial Automation</span>
+    <span class="chip">Decision Engine Architecture</span>
+    <span class="chip">SAP Integration</span>
+    <span class="chip">EDI / REST API</span>
+    <span class="chip">RAG / AI Validation</span>
+    <span class="chip">Regulatory Auditability</span>
+    <span class="chip">Blazor / C#</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section-wrap" id="contact">
+  <div id="contact-inner">
     <div>
-      <div class="profile-block">
-        <div class="profile-key">Stack</div>
-        <div class="stack-tags">
-          <span class="stack-tag">C# / .NET</span>
-          <span class="stack-tag">Blazor</span>
-          <span class="stack-tag">REST API</span>
-          <span class="stack-tag">SAP / EDI</span>
-          <span class="stack-tag">Power BI</span>
-          <span class="stack-tag">Excel / CSV</span>
-          <span class="stack-tag">PPWR / EPR</span>
-          <span class="stack-tag">AI / RAG</span>
-        </div>
-      </div>
+      <h2 class="contact-headline reveal">
+        Hvad koster jeres<br>
+        næste indkøbsbeslutning<br>
+        <em>at tage forkert?</em>
+      </h2>
+      <p class="contact-body reveal">
+        Jeg er ikke til rådighed for alt. Jeg er til rådighed for det, der kræver at nogen forstår indkøb, compliance og IT på én gang — og kan bygge systemet der gør TCO til en reel beslutningsvariabel.
+      </p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:jon@jonbach.dk" class="contact-link">
+        <span class="cl-label">Email</span>
+        jon@jonbach.dk
+        <span class="cl-arrow">→</span>
+      </a>
+      <a href="https://linkedin.com/in/jonbach" class="contact-link">
+        <span class="cl-label">LinkedIn</span>
+        linkedin.com/in/jonbach
+        <span class="cl-arrow">→</span>
+      </a>
+      <a href="https://northlogiclab.com" class="contact-link">
+        <span class="cl-label">Lab</span>
+        northlogiclab.com
+        <span class="cl-arrow">→</span>
+      </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-left">© 2025 Jon Bach · NorthLogicLab</div>
-  <div class="footer-links">
-    <a href="https://theenginesbehind.com" target="_blank">The Engines Behind ↗</a>
-    <a href="https://github.com/NorthLogicLab" target="_blank">GitHub ↗</a>
-    <a href="https://linkedin.com/in/jonbach2012" target="_blank">LinkedIn ↗</a>
-  </div>
+  <div class="footer-logo">Jon Bach · NorthLogicLab · TCO-baserede indkøbssystemer</div>
+  <div class="footer-note">Visualisering — ikke den live side</div>
 </footer>
 
 <script>
-function setLang(lang){
-  document.body.className='lang-'+lang;
-  document.getElementById('btn-en').classList.toggle('active',lang==='en');
-  document.getElementById('btn-da').classList.toggle('active',lang==='da');
-  document.documentElement.lang=lang;
-  // CTA buttons
-  document.querySelectorAll('.hero-cta a[data-lang]').forEach(el=>{
-    el.style.display=el.dataset.lang===lang?'inline-block':'none';
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => {
+  const open = burger.classList.toggle('open');
+  drawer.classList.toggle('open', open);
+  drawer.setAttribute('aria-hidden', String(!open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   });
-}
-// Init
-setLang('en');
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
